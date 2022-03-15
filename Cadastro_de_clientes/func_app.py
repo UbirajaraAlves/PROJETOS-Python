@@ -2,7 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 
 
-class Application():
+class Funcs():
+    def limpar_tela(self) -> None:
+        self.et_codigo.delete(0, tk.END)
+        self.et_nome.delete(0, tk.END)
+        self.et_telefone.delete(0, tk.END)
+        self.et_cidade.delete(0, tk.END)
+
+
+class Application(Funcs):
     def __init__(self):
         self.root = tk.Tk()
         self.cor = ['#FFFFE0', '#FFFACD', '#FFF8DC', '#F5DEB3', '#FFEBCD']
@@ -26,7 +34,6 @@ class Application():
         """Criar os 2 frames de trabalho na tela principal"""
         self.frame1 = tk.Frame(
             self.root,
-            bd=4,
             background=self.cor[2],
             highlightbackground='black',
             highlightthickness=1)
@@ -41,8 +48,8 @@ class Application():
 
     def criando_botoes(self) -> None:
         """Criar os butoes da aplicação"""
-        self.bt_limpar = tk.Button(
-            self.frame1, text='Limpar', bd=2, bg=self.cor[1], font=('Arial', 12))
+        self.bt_limpar = tk.Button(self.frame1, text='Limpar', bd=2, bg=self.cor[1],
+                                   font=('Arial', 12), command=self.limpar_tela)
         self.bt_limpar.place(relx=0.25, rely=0.1, relwidth=0.1, relheight=0.12)
 
         self.bt_buscar = tk.Button(
@@ -90,7 +97,8 @@ class Application():
         self.et_cidade.place(relx=0.5, rely=0.75, relwidth=0.4, relheight=0.1)
 
     def criando_lista_registros(self) -> None:
-        self.lista_reg = ttk.Treeview(self.frame2, height=3, columns=('col1','col2','col3','col4'))
+        self.lista_reg = ttk.Treeview(
+            self.frame2, height=3, columns=('col1', 'col2', 'col3', 'col4'))
 
         self.lista_reg.heading('#0', text='')
         self.lista_reg.heading('#1', text='Código')
@@ -104,14 +112,13 @@ class Application():
         self.lista_reg.column('#3', width=150)
         self.lista_reg.column('#4', width=150)
 
-        self.lista_reg.place(relx=0.05, rely=0.05, relwidth=0.85, relheight=0.9)
-        
+        self.lista_reg.place(relx=0.05, rely=0.05,
+                             relwidth=0.85, relheight=0.9)
+
         self.scroll_lista = tk.Scrollbar(self.frame2, orient='vertical')
         self.lista_reg.configure(yscroll=self.scroll_lista.set)
-        self.scroll_lista.place(relx=0.9, rely=0.05, relwidth=0.05, relheight=0.9)
-
-    def funcoes_botoes(self):
-        pass
+        self.scroll_lista.place(relx=0.9, rely=0.05,
+                                relwidth=0.05, relheight=0.9)
 
 
 if __name__ == '__main__':
